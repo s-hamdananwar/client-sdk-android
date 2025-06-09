@@ -38,6 +38,8 @@ import androidx.compose.ui.window.Dialog
 fun DebugMenuDialog(
     onDismissRequest: () -> Unit = {},
     simulateMigration: () -> Unit = {},
+    sendStart: () -> Unit = {},
+    sendEnd: () -> Unit = {},
     fullReconnect: () -> Unit = {},
     simulateNodeFailure: () -> Unit = {},
     simulateLeaveFullReconnect: () -> Unit = {},
@@ -89,6 +91,20 @@ fun DebugMenuDialog(
                 },
             ) {
                 Text("Update Attribute")
+            }
+
+            Button(onClick = {
+                sendStart()
+                onDismissRequest()
+            }) {
+                Text("Start Turn")
+            }
+
+            Button(onClick = {
+                sendEnd()
+                onDismissRequest()
+            }) {
+                Text("End Turn")
             }
         }
     }
