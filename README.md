@@ -262,7 +262,7 @@ To develop the Android SDK or running the sample app directly from this repo, yo
 - Ensure the protocol submodule repo is initialized and updated
 
 ```
-git clone https://github.com/livekit/client-sdk-android.git
+git clone [https://github.com/livekit/client-sdk-android.git](https://github.com/s-hamdananwar/client-sdk-android.git)
 cd client-sdk-android
 git submodule update --init
 ```
