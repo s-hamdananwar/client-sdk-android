@@ -134,6 +134,8 @@ class CallActivity : AppCompatActivity() {
                 onExitClick = { finish() },
                 onSendMessage = { viewModel.sendData(it) },
                 onSimulateMigration = { viewModel.simulateMigration() },
+                onSendStart = { viewModel.sendStart() },
+                onSendEnd = { viewModel.sendEnd() },
                 onSimulateNodeFailure = { viewModel.simulateNodeFailure() },
                 onSimulateLeaveFullReconnect = { viewModel.simulateServerLeaveFullReconnect() },
                 fullReconnect = { viewModel.reconnect() },
@@ -190,6 +192,8 @@ class CallActivity : AppCompatActivity() {
         onSnackbarDismiss: () -> Unit = {},
         onSendMessage: (String) -> Unit = {},
         onSimulateMigration: () -> Unit = {},
+        onSendStart: () -> Unit = {},
+        onSendEnd: () -> Unit = {},
         onSimulateNodeFailure: () -> Unit = {},
         fullReconnect: () -> Unit = {},
         onSimulateLeaveFullReconnect: () -> Unit = {},
@@ -465,6 +469,8 @@ class CallActivity : AppCompatActivity() {
                                 simulateLeaveFullReconnect = onSimulateLeaveFullReconnect,
                                 fullReconnect = fullReconnect,
                                 onUpdateAttribute = onUpdateAttribute,
+                                sendStart = onSendStart,
+                                sendEnd = onSendEnd,
                             )
                         }
                     }
