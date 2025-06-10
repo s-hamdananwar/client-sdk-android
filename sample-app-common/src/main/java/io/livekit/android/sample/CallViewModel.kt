@@ -64,6 +64,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import livekit.org.webrtc.CameraXHelper
+import io.livekit.android.rpc.RpcError
 
 @OptIn(ExperimentalCamera2Interop::class)
 class CallViewModel(
@@ -380,6 +381,48 @@ class CallViewModel(
     // Debug functions
     fun simulateMigration() {
         room.sendSimulateScenario(Room.SimulateScenario.MIGRATION)
+    }
+
+    fun sendStart() {
+
+            viewModelScope.launch {
+
+                try {
+                    val remoteParticipant = room.remoteParticipants.values.firstOrNull()
+                    val identity = remoteParticipant?.identity
+                    val response = identity?.let {
+                        room.localParticipant.performRpc(
+                            destinationIdentity = it,
+                            method = "start_turn",
+                            payload = "Hello from RPC!"
+                        )
+                    }
+                    println("RPC response: $response")
+                } catch (e: RpcError) {
+                    println("RPC call failed: $e")
+                }
+            }
+    }
+
+    fun sendEnd() {
+
+        viewModelScope.launch {
+
+            try {
+                val remoteParticipant = room.remoteParticipants.values.firstOrNull()
+                val identity = remoteParticipant?.identity
+                val response = identity?.let {
+                    room.localParticipant.performRpc(
+                        destinationIdentity = it,
+                        method = "end_turn",
+                        payload = "Hello from RPC!"
+                    )
+                }
+                println("RPC response: $response")
+            } catch (e: RpcError) {
+                println("RPC call failed: $e")
+            }
+        }
     }
 
     fun simulateNodeFailure() {
